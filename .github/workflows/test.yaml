@@ -7,5 +7,5 @@ jobs:
     runs-on: windows-latest
     #Pasos
     steps:
-    - name: mostrar texto
-      run: echo "Hola mundo"
+      - name: mostrar texto
+        run: echo "Hola mundo"
