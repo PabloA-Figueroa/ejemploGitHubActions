@@ -22,7 +22,7 @@ jobs:
           choco install php --version=8.1
           choco install composer
           php -v
-          composer -version
+          composer -v
   test:
     runs-on: windows-latest
     needs: [build]
