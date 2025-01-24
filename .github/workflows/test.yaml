@@ -15,8 +15,14 @@ jobs:
     runs-on: windows-latest
     needs: [inicio]
     steps:
-      - name: mostrar texto
-        run: echo "Adios"
+      - name: Texto
+        run: echo "Construir"
+      - name: instalar PHP y composer en windows
+        run: |
+          choco install php --version=8.1
+          choco install composer
+          php -v
+          composer -version
   test:
     runs-on: windows-latest
     needs: [build]
