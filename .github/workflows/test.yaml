@@ -7,39 +7,42 @@ jobs:
       runs-on: windows-latest
       #Pasos:
       steps:
-        - name: mostrar texto
-          run: echo "Paso para clonar el repositorio a github actions"
-        - name: Clonar repositorio
+        - name: texto
+          run: echo "Pasos para clonar repositorios a github actions"
+        - name: Checkout
           uses: actions/checkout@v4.2.2
-    build:
+    bluid:
       runs-on: windows-latest
       needs: [inicio]
       steps:
         - name: texto
-          run: echo "Construir"
-        - name: instalar PHP y composer
+          run: echo "Counstruir"
+        - name: installar PHP y composer
           run: |
             choco install php --version=8.1
             choco install composer
-            php --v
+            php -v
             composer --version
         - name: Instalar Mysql
           run: |
-            choco install mysql --version=8.0.27 --y
+            choco install mysql --version=8.0.27 -y
             Start-Service mysql
-            Start-Sleep -Seconds 10
-            mysql_secure_installation --defaults-file="C:\ProgramData\MySQL\MySQL Server 8.0\my.ini" --set-root-password="root" --remove-anonymous-users --disallow-root-login-remotely --remove-test-database --reload-privileges
+            mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
             mysql -u root -proot -e "CREATE DATABASE lumen_db;"
+        - name: Verificar MySQL
+          run: |
+            mysql -u root -proot -e "SHOW DATABASES;"oot -e "ALTER USER 'root'@'localhost'IDENTIFIED WITH mysql_native_password BY 'root';" mysql -u root -proot -e "CREATE DATABASE lumen_db;"
+        
     test:
       runs-on: windows-latest
-      needs: [build]
+      needs: [bluid]
       steps:
-        - name: texto
-          run: echo "Construir"
+        - name: test
+          run: echo "Test"
 
     deploy:
       runs-on: windows-latest
       needs: [test]
       steps:
-        - name: texto
-          run: echo "Construir"
+        - name: deploy
+          run: echo "Deploy"
